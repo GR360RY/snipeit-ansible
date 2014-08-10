@@ -11,7 +11,7 @@ This repository contains installation scripts for deploying [Snipe-IT](http://sn
 Connect to target Ubuntu machine and run:
 
 ```
-wget --no-check-certificate https://raw.github.com/GR360RY/snipeit/master/scripts/snipeit.sh -O - | sh
+wget --no-check-certificate https://raw.github.com/GR360RY/snipeit-ansible/master/scripts/snipeit.sh -O - | sh
 ```
 
 Following the installation completion, open browser and connect to ubuntu machine using it's FQDN or IP Address.
@@ -58,7 +58,7 @@ This Snipe-IT installation playbook can be executed directly on the target machi
 
 ### Modify the configuration
 
-    cd $HOME\snipeit
+    cd $HOME\snipeit-ansible
 
 Edit `snipeit.yml` and ovewrite the default values:
 
@@ -116,7 +116,7 @@ Make sure to modify the last block of the vars section. To import AD users, run 
 ```bash
 cd $HOME
 git clone git@github.com:GR360RY/snipeit-ansible.git
-cd $HOME\snipeit
+cd $HOME\snipeit-ansible
 vagrant up
 ```
 
