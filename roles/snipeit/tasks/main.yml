@@ -1,0 +1,101 @@
+---
+# tasks file for snipeit
+
+- name: Install Requirements
+  apt: name={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - git
+    - apache2
+    - mysql-server
+    - php5
+    - php5-mcrypt
+    - php5-mysql
+    # Below package are required for automated installation with ansible
+    - python-mysqldb
+    - expect
+
+- name: Clone Snipe-IT repo
+  git: repo=https://github.com/snipe/snipe-it.git dest={{ snipeit_source }}
+
+- name: Update production bootstrap enviroment
+  template: src=start.php.j2 dest={{ snipeit_source }}/bootstrap/start.php
+
+- name: Update production database configuration template
+  template: src=database.php.j2 dest={{ snipeit_source }}/app/config/production/database.php
+
+- name: Update production app configuration
+  template: src=app.php.j2 dest={{ snipeit_source }}/app/config/production/app.php
+
+- name: Update production mail settings
+  template: src=mail.php.j2 dest={{ snipeit_source }}/app/config/production/mail.php
+
+- name: Enable php extensions
+  shell: php5enmod {{ item }}
+  with_items:
+    - mcrypt
+    - pdo_mysql
+
+- name: Install composer locally
+  shell: curl -sS https://getcomposer.org/installer | php chdir={{ snipeit_source }} creates={{ snipeit_source }}/composer.phar
+
+- name: Install php requirements with composer
+  shell: php composer.phar install chdir={{ snipeit_source }}
+
+- name: Generate production app key
+  shell: php artisan key:generate --env=production chdir={{ snipeit_source }}
+
+- name: Create snipeit database
+  mysql_db: name={{ snipeit_dbname }} state=present
+  register: db_status
+
+- name: Create snipeit mysql user
+  mysql_user: name={{ snipeit_dbuser }} host='localhost' password={{ snipeit_dbuser_password }} priv=*.*:ALL state=present
+
+- name: Create snipeit mysql user for remote db access
+  mysql_user: name={{ snipeit_dbuser }} host='%' password={{ snipeit_dbuser_password }} priv=*.*:ALL state=present
+  when: run_mysql_on_all_interfaces
+
+- name: Run mysql on all interfaces ( for dev setup )
+  lineinfile: dest=/etc/mysql/my.cnf regexp=^bind-address line='bind-address            = 0.0.0.0'
+  when: run_mysql_on_all_interfaces
+  notify:
+    - restart mysql
+
+- name: Make sure mysql starts on boot
+  service: name=mysql state=started enabled=yes
+
+- name: Add expect installation script for Artisan
+  template: src=artisan_expect.exp.j2 dest={{ snipeit_source }}/artisan_expect.exp mode=0755
+
+- name: Install Snipe-IT Application with Artisan
+  shell: ./artisan_expect.exp chdir={{ snipeit_source }}
+  when: db_status|changed
+
+- name: Fix app/storage folder permissions
+  file: path={{ snipeit_source }}/app/storage recurse=yes group=www-data mode=0775
+
+- name: Enable mode rewrite in Apache
+  apache2_module: name=rewrite state=present
+  notify:
+    - restart apache
+
+- name: Create snipe virtual host in apache
+  template: src=apache_snipeit.conf.j2 dest=/etc/apache2/sites-available/snipeit.conf
+  notify:
+    - restart apache
+
+- name: Enable snipeit virtual host
+  file: src=/etc/apache2/sites-available/snipeit.conf dest=/etc/apache2/sites-enabled/snipeit.conf owner=root group=root state=link
+  notify:
+    - restart apache
+
+- name: Disable default Apache Site
+  file: path=/etc/apache2/sites-enabled/000-default.conf state=absent
+  when: disable_default_apache_site
+
+- name: Make sure apache is enabled and starts on boot
+  service: name=apache2 state=started enabled=yes
+
+- name: Install AD Users Import script
+  include: import_ad_users.yml
+  when: ldap_uri is defined

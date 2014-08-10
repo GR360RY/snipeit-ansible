@@ -1,0 +1,10 @@
+<Directory "{{ snipeit_source }}/public/">
+    Require all granted
+    AllowOverride All
+    Options +Indexes
+</Directory>
+<VirtualHost *:80>
+    ServerName "{{ ansible_fqdn }}"
+    DocumentRoot "{{ snipeit_source }}/public"
+    SetEnv LARAVEL_ENV production
+</VirtualHost>

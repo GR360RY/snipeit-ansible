@@ -1,0 +1,15 @@
+---
+# Tasks for import_ad_users.py script
+
+- name: Install Python Requirements
+  apt: name={{ item }} state=installed
+  with_items:
+    - python-ldap
+    - python-storm
+    - python-pip
+
+- name: Install ldapdict python library
+  pip: name=ldapdict state=present
+
+- name: Install import_ad_users.py script
+  template: src=import_ad_users.py.j2 dest=/usr/local/bin/import_ad_users.py owner=root group=root mode=0700

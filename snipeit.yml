@@ -1,0 +1,6 @@
+---
+- hosts: snipeit 
+  sudo: true
+
+  roles:
+    - snipeit

@@ -1,0 +1,25 @@
+---
+# defaults file for snipeit
+
+snipeit_source: /opt/snipe-it
+
+snipeit_dbname: snipeit
+snipeit_dbuser: snipeit
+snipeit_dbuser_password: secret
+
+smtp_host: smtp.example.com
+smtp_port: 25
+
+admin_first_name: Admin
+admin_last_name: Admin
+admin_email: foo@example.com
+admin_password: bar
+
+disable_default_apache_site: True
+run_mysql_on_all_interfaces: False
+
+ldap_uri: 'ldap://dc01.example.com'
+ldap_admin: 'CN=Administrator,DC=example,DC=com'
+ldap_passwd: 'your_secret_password'
+users_ou: 'OU=Users,DC=example,DC=com'
+

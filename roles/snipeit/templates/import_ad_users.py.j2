@@ -1,0 +1,68 @@
+#!/usr/bin/env python
+
+from storm.locals import *
+from ldapdict.ldapdict import ADSLdapDict
+from ldapdict.ldapcache import ADSLdapCache
+
+# LDAP Servers and Credentials
+LDAP_URI = '{{ ldap_uri }}'
+LDAP_ADMIN = '{{ ldap_admin }}'
+LDAP_PASSWD = '{{ ldap_passwd }}'
+USERS_OU = '{{ users_ou }}'
+
+# Snipe-IT Database URL
+DB_URL = 'mysql://{{ snipeit_dbuser }}:{{ snipeit_dbuser_password }}@localhost/{{ snipeit_dbname }}'
+
+# Relevant LDAP Attributes to fetch from AD/LDAP
+ldap_attributes = {
+    'email': 'mail',
+    'first_name': 'givenName',
+    'last_name': 'sn'
+}
+
+ldap_users_dict = {}
+mysql_users_dict = {}
+
+class SnipeIT_User(object):
+    __storm_table__ = 'users'
+    id = Int(primary=True)
+    first_name = Unicode()
+    last_name = Unicode()
+    email = Unicode()
+    password = Unicode()
+
+
+def get_ldap_users():
+    lc = ADSLdapCache(ADSLdapDict, LDAP_URI, LDAP_ADMIN, LDAP_PASSWD)
+
+    ldap_users = ADSLdapDict(USERS_OU, lc)
+
+    for user in ldap_users.children:
+        email = user[ldap_attributes['email']][0]
+        first_name = user[ldap_attributes['first_name']][0]
+        last_name = user[ldap_attributes['last_name']][0]
+
+        ldap_users_dict[email] = {'first_name':first_name, 'last_name':last_name, 'email':email}
+
+
+def update_snipeit_users():
+    db = create_database(DB_URL)
+    store = Store(db)
+    for key in ldap_users_dict:
+        result = store.find(SnipeIT_User, SnipeIT_User.email == unicode(ldap_users_dict[key]['email'])).one()
+        if result is not None:
+            print "User %s already exists" % ldap_users_dict[key]['email']
+        else:
+            print "Adding %s User" % ldap_users_dict[key]['email']
+            new_user = SnipeIT_User()
+            new_user.first_name = unicode(ldap_users_dict[key]['first_name'])
+            new_user.last_name = unicode(ldap_users_dict[key]['last_name'])
+            new_user.email = unicode(ldap_users_dict[key]['email'])
+            new_user.password = unicode('123')
+            store.add(new_user)
+            store.commit()
+
+
+if __name__ == '__main__':
+    get_ldap_users()
+    update_snipeit_users()
