@@ -46,7 +46,9 @@ __Default Configuration Values:__
 This Snipe-IT installation playbook can be executed directly on the target machine or from remote host. To simplify the process we will assume that the installation is done directly from the ubuntu that we are deploying Snipe-IT on. Connect to the target ubuntu machine and run the following:
 
 ### Install Ansible and git
-
+    sudo apt-get -y install python-software-properties
+    sudo apt-add-repository -y ppa:ansible/ansible
+    sudo apt-get update
     sudo apt-get install ansible git
 
 ### Clone the repository
