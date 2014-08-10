@@ -22,4 +22,3 @@ ldap_uri: 'ldap://dc01.example.com'
 ldap_admin: 'CN=Administrator,DC=example,DC=com'
 ldap_passwd: 'your_secret_password'
 users_ou: 'OU=Users,DC=example,DC=com'
-

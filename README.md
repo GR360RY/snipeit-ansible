@@ -54,7 +54,7 @@ This Snipe-IT installation playbook can be executed directly on the target machi
 ### Clone the repository
 
     cd $HOME
-    git clone git@github.com:GR360RY/snipeit.git
+    git clone git@github.com:GR360RY/snipeit-ansible.git
 
 ### Modify the configuration
 
@@ -86,7 +86,9 @@ Edit `snipeit.yml` and ovewrite the default values:
     disable_default_apache_site: False
     run_mysql_on_all_interfaces: False
 
-    # The following variables configure Active Directory user import script
+    # If you want to import users from Active Directory to Snipe-IT, modify the below values. 
+    # To import AD users, run /usr/local/bin/import_ad_users.py
+
     ldap_uri: 'ldap://dc01.foo.com'
     ldap_admin: 'CN=Administrator,DC=foo,DC=com'
     ldap_passwd: 'your_secret_password'
@@ -97,6 +99,10 @@ Edit `snipeit.yml` and ovewrite the default values:
     - snipeit
 
 ```
+### Active Directory User Import
+
+One major feature that is missing from Snipe-IT is Active Directory user import/syncronisation. It is important to say that this feature is on the roadmap. But what if you eager to use Snipe-IT in production and do not want to add each and every user manually? This repository will also deploy simple python script that will import AD users directly into the Snipe-IT database.
+Make sure to modify the last block of the vars section. To import AD users, run `/usr/local/bin/import_ad_users.py`
 
 ### Install Snipe-IT
 
@@ -109,7 +115,7 @@ Edit `snipeit.yml` and ovewrite the default values:
 
 ```bash
 cd $HOME
-git clone git@github.com:GR360RY/snipeit.git
+git clone git@github.com:GR360RY/snipeit-ansible.git
 cd $HOME\snipeit
 vagrant up
 ```
