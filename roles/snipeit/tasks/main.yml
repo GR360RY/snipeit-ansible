@@ -15,7 +15,7 @@
     - expect
 
 - name: Clone Snipe-IT repo
-  git: repo=https://github.com/snipe/snipe-it.git dest={{ snipeit_source }}
+  git: repo=https://github.com/snipe/snipe-it.git dest={{ snipeit_source }} update=no
 
 - name: Update production bootstrap enviroment
   template: src=start.php.j2 dest={{ snipeit_source }}/bootstrap/start.php
