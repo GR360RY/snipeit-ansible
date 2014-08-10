@@ -49,7 +49,7 @@ This Snipe-IT installation playbook can be executed directly on the target machi
     sudo apt-get -y install python-software-properties
     sudo apt-add-repository -y ppa:ansible/ansible
     sudo apt-get update
-    sudo apt-get install ansible git
+    sudo apt-get -y install ansible git
 
 ### Clone the repository
 
