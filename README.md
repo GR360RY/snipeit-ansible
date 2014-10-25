@@ -86,7 +86,7 @@ Edit `snipeit.yml` and ovewrite the default values:
     disable_default_apache_site: False
     run_mysql_on_all_interfaces: False
 
-    # If you want to import users from Active Directory to Snipe-IT, modify the below values. 
+    # If you want to import users from Active Directory to Snipe-IT, modify the below values.
     # To import AD users, run /usr/local/bin/import_ad_users.py
 
     ldap_uri: 'ldap://dc01.foo.com'
@@ -101,7 +101,7 @@ Edit `snipeit.yml` and ovewrite the default values:
 ```
 ### Active Directory User Import
 
-One major feature that is missing from Snipe-IT is Active Directory user import/syncronisation. It is important to say that this feature is on the roadmap. But what if you eager to use Snipe-IT in production and do not want to add each and every user manually? This repository will also deploy simple python script that will import AD users directly into the Snipe-IT database.
+One major feature that is missing from Snipe-IT is Active Directory user import/syncronisation. It is important to say that this feature is on the roadmap. But what if you are eager to use Snipe-IT in production and do not want to add each and every user manually? This repository will also deploy simple python script that will import AD users directly into the Snipe-IT database.
 Make sure to modify the last block of the vars section. To import AD users, run `/usr/local/bin/import_ad_users.py`
 
 ### Install Snipe-IT
