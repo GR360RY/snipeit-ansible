@@ -115,7 +115,7 @@ Make sure to modify the last block of the vars section. To import AD users, run 
 
 ```bash
 cd $HOME
-git clone https://github.com/GR360RY/snipeit-ansible.git
+git clone https://github.com/GR360RY/snipeit-ansible.git snipeit
 cd $HOME\snipeit-ansible
 vagrant up
 ```
