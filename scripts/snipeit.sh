@@ -5,7 +5,7 @@ sudo apt-get update
 sudo apt-get -y install git ansible
 if [ ! -d "$HOME/htpc-ansible" ]; then
 	echo "\n\033[0;32m >> Clone snipeit installation repository\033[0m"
-	git clone git://github.com/GR360RY/snipeit.git "$HOME/snipeit"
+	git clone git://github.com/GR360RY/snipeit-ansible.git "$HOME/snipeit"
 else
 	"\n\033[0;32m >> Snipeit installation repo is already available\033[0m"
 fi

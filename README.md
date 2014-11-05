@@ -1,6 +1,6 @@
 Snipe-IT Installation with Ansible
 ----------------------------------
-This repository contains installation scripts for deploying [Snipe-IT](http://snipeitapp.com/) with [Ansible](http://www.ansible.com) on Ubuntu. Installation can be performed on production/developemnt server or tested with [Vagrant](http://www.vagrantup.com). 
+This repository contains installation scripts for deploying [Snipe-IT](http://snipeitapp.com/) with [Ansible](http://www.ansible.com) on Ubuntu. Installation can be performed on production/development server or tested with [Vagrant](http://www.vagrantup.com). 
 
 ## Requirements
 
@@ -60,7 +60,7 @@ This Snipe-IT installation playbook can be executed directly on the target machi
 
     cd $HOME\snipeit-ansible
 
-Edit `snipeit.yml` and ovewrite the default values:
+Edit `snipeit.yml` and overwrite the default values:
 
 ```yaml
 ---
