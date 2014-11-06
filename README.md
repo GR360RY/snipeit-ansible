@@ -1,6 +1,6 @@
 Snipe-IT Installation with Ansible
 ----------------------------------
-This repository contains installation scripts for deploying [Snipe-IT](http://snipeitapp.com/) with [Ansible](http://www.ansible.com) on Ubuntu. Installation can be performed on production/developemnt server or tested with [Vagrant](http://www.vagrantup.com). 
+This repository contains installation scripts for deploying [Snipe-IT](http://snipeitapp.com/) with [Ansible](http://www.ansible.com) on Ubuntu. Installation can be performed on production/development server or tested with [Vagrant](http://www.vagrantup.com). 
 
 ## Requirements
 
@@ -54,13 +54,13 @@ This Snipe-IT installation playbook can be executed directly on the target machi
 ### Clone the repository
 
     cd $HOME
-    git clone https://github.com/GR360RY/snipeit-ansible.git
+    git clone https://github.com/GR360RY/snipeit-ansible.git snipeit
 
 ### Modify the configuration
 
-    cd $HOME\snipeit-ansible
+    cd $HOME\snipeit
 
-Edit `snipeit.yml` and ovewrite the default values:
+Edit `snipeit.yml` and overwrite the default values:
 
 ```yaml
 ---
@@ -115,8 +115,8 @@ Make sure to modify the last block of the vars section. To import AD users, run 
 
 ```bash
 cd $HOME
-git clone https://github.com/GR360RY/snipeit-ansible.git
-cd $HOME\snipeit-ansible
+git clone https://github.com/GR360RY/snipeit-ansible.git snipeit
+cd $HOME\snipeit
 vagrant up
 ```
 
