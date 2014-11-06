@@ -54,11 +54,11 @@ This Snipe-IT installation playbook can be executed directly on the target machi
 ### Clone the repository
 
     cd $HOME
-    git clone https://github.com/GR360RY/snipeit-ansible.git
+    git clone https://github.com/GR360RY/snipeit-ansible.git snipeit
 
 ### Modify the configuration
 
-    cd $HOME\snipeit-ansible
+    cd $HOME\snipeit
 
 Edit `snipeit.yml` and overwrite the default values:
 
@@ -116,7 +116,7 @@ Make sure to modify the last block of the vars section. To import AD users, run 
 ```bash
 cd $HOME
 git clone https://github.com/GR360RY/snipeit-ansible.git snipeit
-cd $HOME\snipeit-ansible
+cd $HOME\snipeit
 vagrant up
 ```
 
