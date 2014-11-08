@@ -10,6 +10,7 @@
     - php5
     - php5-mcrypt
     - php5-mysql
+    - php5-gd
     - curl
     # Below package are required for automated installation with ansible
     - python-mysqldb
