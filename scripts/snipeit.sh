@@ -1,4 +1,5 @@
 echo "\n\033[0;32m >> Install Git and Ansible\033[0m"
+sudo apt-get update
 sudo apt-get -y install software-properties-common python-software-properties
 sudo apt-add-repository -y ppa:ansible/ansible
 sudo apt-get update

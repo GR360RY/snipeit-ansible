@@ -46,7 +46,7 @@ __Default Configuration Values:__
 This Snipe-IT installation playbook can be executed directly on the target machine or from remote host. To simplify the process we will assume that the installation is done directly from the ubuntu that we are deploying Snipe-IT on. Connect to the target ubuntu machine and run the following:
 
 ### Install Ansible and git
-    sudo apt-get -y install python-software-properties
+    sudo apt-get -y install python-software-properties software-properties-common
     sudo apt-add-repository -y ppa:ansible/ansible
     sudo apt-get update
     sudo apt-get -y install ansible git
@@ -58,7 +58,7 @@ This Snipe-IT installation playbook can be executed directly on the target machi
 
 ### Modify the configuration
 
-    cd $HOME\snipeit
+    cd $HOME/snipeit
 
 Edit `snipeit.yml` and overwrite the default values:
 
@@ -101,7 +101,7 @@ Edit `snipeit.yml` and overwrite the default values:
 ```
 ### Active Directory User Import
 
-One major feature that is missing from Snipe-IT is Active Directory user import/syncronisation. It is important to say that this feature is on the roadmap. But what if you are eager to use Snipe-IT in production and do not want to add each and every user manually? This repository will also deploy simple python script that will import AD users directly into the Snipe-IT database.
+One major feature that is missing from Snipe-IT is Active Directory user import/synchronization. It is important to say that this feature is on the roadmap. But what if you are eager to use Snipe-IT in production and do not want to add each and every user manually? This repository will also deploy simple python script that will import AD users directly into the Snipe-IT database.
 Make sure to modify the last block of the vars section. To import AD users, run `/usr/local/bin/import_ad_users.py`
 
 ### Install Snipe-IT
@@ -110,18 +110,25 @@ Make sure to modify the last block of the vars section. To import AD users, run 
 
 ## Testing Snipe-IT with Vagrant
 
-1. Install Vagrant on your Linux or Mac: [Vagrant Download Page](https://www.vagrantup.com/downloads)
-2. Clone the repository and run `vagrant up`
+Install the following Requirements:
+
+* [Virtualbox Download Page](https://www.virtualbox.org/wiki/Downloads)
+* [Vagrant Download Page](https://www.vagrantup.com/downloads)
+* [Ansible Install Page](http://docs.ansible.com/intro_installation.html)
+
+_Note:_ Currently working and tested on OS X only but should work just fine on Linux/BSD system and even Windows.
+
+1. Clone the repository and run `vagrant up`
 
 ```bash
 cd $HOME
 git clone https://github.com/GR360RY/snipeit-ansible.git snipeit
-cd $HOME\snipeit
+cd $HOME/snipeit
 vagrant up
 ```
 
-3. Open you browser and connect to http://172.20.1.2
-4. Login credentials:
+2. Open you browser and connect to http://172.20.1.2
+3. Login credentials:
 
 User:      `foo@example.com`  
 Password:  `bar`
