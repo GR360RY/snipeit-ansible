@@ -73,8 +73,12 @@
   shell: ./artisan_expect.exp chdir={{ snipeit_source }}
   when: db_status|changed
 
-- name: Fix app/storage folder permissions
-  file: path={{ snipeit_source }}/app/storage recurse=yes group=www-data mode=0775
+- name: Fix app/storage and public/uploads folders permissions
+  file: path={{ item }} recurse=yes group=www-data mode=0775
+  with_items:
+    - "{{ snipeit_source }}/app/storage"
+    - "{{ snipeit_source }}/public/uploads"
+
 
 - name: Enable mode rewrite in Apache
   apache2_module: name=rewrite state=present
