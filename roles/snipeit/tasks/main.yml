@@ -46,6 +46,9 @@
 - name: Generate production app key
   shell: php artisan key:generate --env=production chdir={{ snipeit_source }}
 
+- name: Make sure MySQL server is running and starts on boot
+  service: name=mysql state=started enabled=yes
+
 - name: Create snipeit database
   mysql_db: name={{ snipeit_dbname }} state=present
   register: db_status
