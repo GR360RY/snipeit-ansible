@@ -30,4 +30,4 @@
     users_ou: 'OU=Users,DC=foo,DC=com'
 
   roles:
-    - snipeit
+    - snipeit-ansible
