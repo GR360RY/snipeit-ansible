@@ -122,8 +122,8 @@ _Note:_ Currently working and tested on OS X only but should work just fine on L
 
 ```bash
 cd $HOME
-git clone https://github.com/GR360RY/snipeit-ansible.git snipeit
-cd $HOME/snipeit
+git clone https://github.com/GR360RY/snipeit-ansible.git snipeit-ansible
+cd $HOME/snipeit-ansible
 vagrant up
 ```
 

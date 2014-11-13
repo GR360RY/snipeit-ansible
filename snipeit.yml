@@ -2,5 +2,32 @@
 - hosts: snipeit 
   sudo: true
 
+  vars:
+
+    snipeit_source: /opt/snipe-it
+
+    snipeit_dbname: snipeit
+    snipeit_dbuser: snipeit
+    snipeit_dbuser_password: secret
+
+    smtp_host: smtp.example.com
+    smtp_port: 25
+
+    admin_first_name: Admin
+    admin_last_name: Admin
+    admin_email: foo@example.com
+    admin_password: bar
+
+    disable_default_apache_site: False
+    run_mysql_on_all_interfaces: False
+
+    # If you want to import users from Active Directory to Snipe-IT, modify the below values.
+    # To import AD users, run /usr/local/bin/import_ad_users.py
+
+    ldap_uri: 'ldap://dc01.foo.com'
+    ldap_admin: 'CN=Administrator,DC=foo,DC=com'
+    ldap_passwd: 'your_secret_password'
+    users_ou: 'OU=Users,DC=foo,DC=com'
+
   roles:
     - snipeit
