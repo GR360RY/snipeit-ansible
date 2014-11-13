@@ -58,7 +58,7 @@ This Snipe-IT installation playbook can be executed directly on the target machi
 
 ### Modify the configuration
 
-    cd $HOME/snipeit
+    cd $HOME/snipeit-ansible
 
 Edit `snipeit.yml` and overwrite the default values:
 
