@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: Gregory Shulov
+  description: A role for installing Snipe-IT on Debian Based Distros
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+  categories:
+  - system
+  min_ansible_version: 1.6
+dependencies: []

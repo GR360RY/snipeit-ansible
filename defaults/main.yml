@@ -1,5 +1,5 @@
 ---
-# defaults file for snipeit
+# defaults file for snipeit-ansible
 
 snipeit_source: /opt/snipe-it
 
