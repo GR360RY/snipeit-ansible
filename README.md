@@ -1,12 +1,18 @@
 Snipe-IT Installation with Ansible
 ----------------------------------
-This repository contains installation scripts for deploying [Snipe-IT](http://snipeitapp.com/) with [Ansible](http://www.ansible.com) on Ubuntu. Installation can be performed on production/development server or tested with [Vagrant](http://www.vagrantup.com). 
+This repository contains [Ansible](http://www.ansible.com) Role for deploying [Snipe-IT](http://snipeitapp.com/) on Debian based systems. 
 
-## Requirements
-
-* Ubuntu 14.04
+* Quick Installation can be performed on production/development server with attached script.
+* Sample playbook is available for standalone installations.
+* [Vagrant](http://www.vagrantup.com) file is attached for quickly testing Snipe-IT on VM.
 
 ## Quick Installation
+
+__Requirements:__
+
+Ubuntu 12.04 and up. ( Testend on Ubuntu 14.04 )
+
+__Installation:__
 
 Connect to target Ubuntu machine and run:
 
@@ -24,7 +30,7 @@ Password:  `bar`
 Installation will be performed using the default configuration values.
 
 
-__Default Configuration Values:__
+## Default Configuration Values:
 
 | Variable Name                |   Default Value   | 
 |:-----------------------------|:-----------------:|
@@ -54,7 +60,7 @@ This Snipe-IT installation playbook can be executed directly on the target machi
 ### Clone the repository
 
     cd $HOME
-    git clone https://github.com/GR360RY/snipeit-ansible.git snipeit
+    git clone https://github.com/GR360RY/snipeit-ansible.git
 
 ### Modify the configuration
 
@@ -69,44 +75,45 @@ Edit `snipeit.yml` and overwrite the default values:
 
   vars:
 
-    snipeit_source: /var/www/another_folder
+    snipeit_source: /opt/snipe-it
 
-    snipeit_dbname: my_db
-    snipeit_dbuser: foo
-    snipeit_dbuser_password: bar
+    snipeit_dbname: snipeit
+    snipeit_dbuser: snipeit
+    snipeit_dbuser_password: secret
 
-    smtp_host: smtp.foo.com
+    smtp_host: smtp.example.com
     smtp_port: 25
 
     admin_first_name: Admin
     admin_last_name: Admin
-    admin_email: john@foo.com
-    admin_password: my_secret_password
+    admin_email: foo@example.com
+    admin_password: bar
 
-    disable_default_apache_site: False
+    disable_default_apache_site: True
     run_mysql_on_all_interfaces: False
 
-    # If you want to import users from Active Directory to Snipe-IT, modify the below values.
+    # If you want to import users from Active Directory to Snipe-IT, uncomment and modify the below values.
     # To import AD users, run /usr/local/bin/import_ad_users.py
 
-    ldap_uri: 'ldap://dc01.foo.com'
-    ldap_admin: 'CN=Administrator,DC=foo,DC=com'
-    ldap_passwd: 'your_secret_password'
-    users_ou: 'OU=Users,DC=foo,DC=com'
-
+    #ldap_uri: 'ldap://dc01.foo.com'
+    #ldap_admin: 'CN=Administrator,DC=foo,DC=com'
+    #ldap_passwd: 'your_secret_password'
+    #users_ou: 'OU=Users,DC=foo,DC=com'
 
   roles:
-    - snipeit
+    - snipeit-ansible
 
 ```
+### Install Snipe-IT
+
+    sudo ansible-playbook -i hosts -c local snipeit.yml
+
+
 ### Active Directory User Import
 
 One major feature that is missing from Snipe-IT is Active Directory user import/synchronization. It is important to say that this feature is on the roadmap. But what if you are eager to use Snipe-IT in production and do not want to add each and every user manually? This repository will also deploy simple python script that will import AD users directly into the Snipe-IT database.
 Make sure to modify the last block of the vars section. To import AD users, run `/usr/local/bin/import_ad_users.py`
 
-### Install Snipe-IT
-
-    sudo ansible-playbook -i hosts -c local snipeit.yml
 
 ## Testing Snipe-IT with Vagrant
 
@@ -122,7 +129,7 @@ _Note:_ Currently working and tested on OS X only but should work just fine on L
 
 ```bash
 cd $HOME
-git clone https://github.com/GR360RY/snipeit-ansible.git snipeit-ansible
+git clone https://github.com/GR360RY/snipeit-ansible.git
 cd $HOME/snipeit-ansible
 vagrant up
 ```
