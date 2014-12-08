@@ -38,11 +38,25 @@ def get_ldap_users():
     ldap_users = ADSLdapDict(USERS_OU, lc)
 
     for user in ldap_users.children:
-        email = user[ldap_attributes['email']][0]
-        first_name = user[ldap_attributes['first_name']][0]
-        last_name = user[ldap_attributes['last_name']][0]
+        try:
+            first_name = user[ldap_attributes['first_name']][0]
+        except:
+            pass
+        else:
+            first_name = ''
 
-        ldap_users_dict[email] = {'first_name':first_name, 'last_name':last_name, 'email':email}
+        try:
+            first_name = user[ldap_attributes['last_name']][0]
+        except:
+            pass
+        else:
+            last_name = ''
+
+        try:
+            email = user[ldap_attributes['email']][0]
+            ldap_users_dict[email] = {'first_name':first_name, 'last_name':last_name, 'email':email}
+        except:
+            pass
 
 
 def update_snipeit_users():
