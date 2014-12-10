@@ -46,7 +46,7 @@ def get_ldap_users():
             first_name = ''
 
         try:
-            first_name = user[ldap_attributes['last_name']][0]
+            last_name = user[ldap_attributes['last_name']][0]
         except:
             pass
         else:
