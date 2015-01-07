@@ -64,8 +64,22 @@ def update_snipeit_users():
     store = Store(db)
     for key in ldap_users_dict:
         result = store.find(SnipeIT_User, SnipeIT_User.email == unicode(ldap_users_dict[key]['email'])).one()
-        if result is not None:
-            print "User %s already exists" % ldap_users_dict[key]['email']
+        changes = 0
+        ufirst_name = unicode(ldap_users_dict[key]['first_name'])
+        ulast_name = unicode(ldap_users_dict[key]['last_name'])
+        if result is not None:   ### if email address already appears on internal DB
+            if result.first_name != ufirst_name:    ### update first name incase of rename
+                store.find(SnipeIT_User, SnipeIT_User.email == unicode(ldap_users_dict[key]['email'])).set(first_name=ufirst_name)
+                changes += 1
+                store.commit()
+            if result.last_name != ulast_name:  ### update surname incase of rename
+                store.find(SnipeIT_User, SnipeIT_User.email == unicode(ldap_users_dict[key]['email'])).set(last_name=ulast_name)
+                changes += 1
+                store.commit()
+            if changes == 0:
+                print "User %s already exists" % ldap_users_dict[key]['email']
+            else:
+                print "Modified Attributes for User %s" % ldap_users_dict[key]['email']
         else:
             print "Adding %s User" % ldap_users_dict[key]['email']
             new_user = SnipeIT_User()
