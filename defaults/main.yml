@@ -2,6 +2,7 @@
 # defaults file for snipeit-ansible
 
 snipeit_source: /opt/snipe-it
+snipeit_version: master
 
 snipeit_dbname: snipeit
 snipeit_dbuser: snipeit

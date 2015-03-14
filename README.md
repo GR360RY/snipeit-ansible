@@ -35,6 +35,7 @@ Installation will be performed using the default configuration values.
 | Variable Name                |   Default Value   | 
 |:-----------------------------|:-----------------:|
 |snipeit_source                |/opt/snipe-it      |
+|snipeit_version               |master             |
 |snipeit_dbuser                |snipeit            |
 |snipeit_dbuser_password       |secret             |
 |snipeit_dbname                |snipeit            |
