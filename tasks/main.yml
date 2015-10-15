@@ -12,6 +12,7 @@
     - php5-mysql
     - php5-gd
     - curl
+    - php5-curl
     # Below package are required for automated installation with ansible
     - python-mysqldb
     - expect
