@@ -108,4 +108,4 @@
 
 - name: Install AD Users Import script
   include: import_ad_users.yml
-  when: ldap_uri is defined
+  when: ldap
