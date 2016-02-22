@@ -1,33 +1,43 @@
 ---
-- hosts: snipeit 
+- hosts: snipeit
   sudo: true
 
   vars:
 
     snipeit_source: /opt/snipe-it
-
+    snipeit_version: master
     snipeit_dbname: snipeit
     snipeit_dbuser: snipeit
-    snipeit_dbuser_password: secret
 
-    smtp_host: smtp.example.com
+    smtp_host: []
     smtp_port: 25
 
     admin_first_name: Admin
     admin_last_name: Admin
-    admin_email: foo@example.com
-    admin_password: bar
+    admin_email: "{{ lookup('env', 'GIT_AUTHOR_EMAIL') }}"
+    admin_user_name: "{{ lookup('env', 'USERNAME') }}"
 
     disable_default_apache_site: True
-    run_mysql_on_all_interfaces: False
+    run_mysql_on_all_interfaces: True
+# If you want to import users from Active Directory to Snipe-IT, change ldap: to true and modify the below values.
+# To import AD users, run /usr/local/bin/import_ad_users.py
+    ldap: false
+    ldap_uri: []
+    ldap_admin: 'CN=Administrator,DC=foo,DC=com'
+    ldap_passwd: 'your_secret_password'
+    users_ou: 'OU=Users,DC=foo,DC=com'
 
-    # If you want to import users from Active Directory to Snipe-IT, uncomment and modify the below values.
-    # To import AD users, run /usr/local/bin/import_ad_users.py
+  vars_prompt:
 
-    #ldap_uri: 'ldap://dc01.foo.com'
-    #ldap_admin: 'CN=Administrator,DC=foo,DC=com'
-    #ldap_passwd: 'your_secret_password'
-    #users_ou: 'OU=Users,DC=foo,DC=com'
+    - name: "snipeit_dbuser_password"
+      prompt: "Enter snipeit_dbuser_password"
+      default: "changeme"
+      private: yes
+
+    - name: "admin_password"
+      prompt: "Enter admin_password"
+      default: "changeme"
+      private: yes
 
   roles:
     - snipeit-ansible

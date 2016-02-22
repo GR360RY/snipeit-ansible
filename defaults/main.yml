@@ -13,6 +13,7 @@ smtp_port: 25
 
 admin_first_name: Admin
 admin_last_name: Admin
+admin_user_name: admin
 admin_email: foo@example.com
 admin_password: bar
 

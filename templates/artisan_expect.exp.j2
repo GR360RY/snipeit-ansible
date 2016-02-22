@@ -4,10 +4,10 @@ spawn php artisan app:install
 
 expect "Please enter your first name:" {send "{{ admin_first_name }}\r"}
 expect "Please enter your last name:" {send "{{ admin_last_name }}\r"}
-expect "Please enter your user email:" {send "{{ admin_email }}\r"}
+expect "Please enter your username:" {send "{{ admin_user_name }}\r"}
+expect "Please enter your email:" {send "{{ admin_email }}\r"}
 expect "Please enter your user password (at least 8 characters):" {send "{{ admin_password }}\r"}
-expect "Do you want to seed your database with dummy data? (deafult is yes):" {send "yes\r"}
-expect "Do you really wish to run this command?" {send "yes\r"}
-expect "Do you really wish to run this command?" {send "yes\r"}
+expect "Please confirm your user password:" {send "{{ admin_password }}\r"}
+expect "Do you want to seed your database with dummy data? y/N (default is no):" {send "y\r"}
 
 expect eof
