@@ -15,7 +15,7 @@
     admin_first_name: Admin
     admin_last_name: Admin
     admin_email: "{{ lookup('env', 'GIT_AUTHOR_EMAIL') }}"
-    admin_user_name: "{{ lookup('env', 'USERNAME') }}"
+    admin_user_name: "{{ lookup('env', 'USER') }}"
 
     disable_default_apache_site: True
     run_mysql_on_all_interfaces: True
