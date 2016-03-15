@@ -19,7 +19,7 @@
 
     disable_default_apache_site: True
     run_mysql_on_all_interfaces: True
-# If you want to import users from Active Directory to Snipe-IT, change ldap: to true and modify the below values.
+# Currently the connector (ldap_dict has 'gone away') and another solution needed :: Don't bother with below ldap vars. If you want to import users from Active Directory to Snipe-IT, change ldap: to true and modify the below values.
 # To import AD users, run /usr/local/bin/import_ad_users.py
     ldap: false
     ldap_uri: []
