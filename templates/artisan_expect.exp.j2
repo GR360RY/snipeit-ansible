@@ -1,5 +1,5 @@
 #!/usr/bin/expect
-
+set timeout -1
 spawn php artisan app:install
 
 expect "Please enter your first name:" {send "{{ admin_first_name }}\r"}
